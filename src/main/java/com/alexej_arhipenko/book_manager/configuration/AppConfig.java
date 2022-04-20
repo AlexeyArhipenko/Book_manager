@@ -22,11 +22,13 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 public class AppConfig {
-    private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
-    private static final String PROPERTY_NAME_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
-    private static final String PROPERTY_NAME_HIBERNATE_USE_SQL_COMMENTS = "hibernate.use_sql_comments";
-    private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    private static final String HIBERNATE_DIALECT = "hibernate.dialect";
+    private static final String HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
+    private static final String HIBERNATE_USE_SQL_COMMENTS = "hibernate.use_sql_comments";
+    private static final String HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String[] ENTITY_MANAGER_PACKAGES_TO_SCAN = {"com.alexej_arhipenko.book_manager.model"};
+    private static final String HIBERNATE_SEARCH_DIRECTORY_PROVIDER = "hibernate.search.default.directory_provider";
+    private static final String HIBERNATE_SEARCH_INDEX_BASE = "hibernate.search.default.indexBase";
 
 
     private final Environment env;
@@ -75,10 +77,12 @@ public class AppConfig {
 
         Properties properties = new Properties();
 
-        properties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
-        properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
-        properties.put(PROPERTY_NAME_HIBERNATE_USE_SQL_COMMENTS, env.getProperty(PROPERTY_NAME_HIBERNATE_USE_SQL_COMMENTS));
-        properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
+        properties.put(HIBERNATE_FORMAT_SQL, env.getProperty(HIBERNATE_FORMAT_SQL));
+        properties.put(HIBERNATE_SHOW_SQL, env.getProperty(HIBERNATE_SHOW_SQL));
+        properties.put(HIBERNATE_USE_SQL_COMMENTS, env.getProperty(HIBERNATE_USE_SQL_COMMENTS));
+        properties.put(HIBERNATE_DIALECT, env.getProperty(HIBERNATE_DIALECT));
+        properties.put(HIBERNATE_SEARCH_DIRECTORY_PROVIDER, env.getProperty(HIBERNATE_SEARCH_DIRECTORY_PROVIDER));
+        properties.put(HIBERNATE_SEARCH_INDEX_BASE, env.getProperty(HIBERNATE_SEARCH_INDEX_BASE));
 
         return properties;
     }
