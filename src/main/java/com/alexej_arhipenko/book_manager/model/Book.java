@@ -6,10 +6,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@NamedQueries({
+        @NamedQuery(name = Book.DELETE, query = "DELETE FROM Book b WHERE b.id=:id"),
+        @NamedQuery(name = Book.GET_ALL, query = "SELECT b FROM Book b")
+})
 
 @Entity
 @Table(name = "books")
-public class Book extends AbstractBaseEntity{
+public class Book extends AbstractBaseEntity {
+
+    public static final String GET_ALL = "Book.getAll";
+    public static final String DELETE = "Book.delete";
 
     @Column(name = "title")
     @NotBlank(message = "Enter a title")
