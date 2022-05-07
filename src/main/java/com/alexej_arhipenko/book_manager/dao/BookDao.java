@@ -5,11 +5,11 @@ import com.alexej_arhipenko.book_manager.model.Book;
 import java.util.List;
 
 public interface BookDao {
-    Book save(Book book);
+    Book save(Book book, long userId);
 
-    boolean delete(long id);
+    boolean delete(long id, long userId);
 
-    Book get(long id);
+    Book get(long id, long userId);
 
-    List<Book> getAll();
+    List<Book> getAll(long userId);
 }
