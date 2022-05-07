@@ -1,5 +1,8 @@
 package com.alexej_arhipenko.book_manager.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -7,8 +10,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @NamedQueries({
-        @NamedQuery(name = Book.DELETE, query = "DELETE FROM Book b WHERE b.id=:id"),
-        @NamedQuery(name = Book.GET_ALL, query = "SELECT b FROM Book b")
+        @NamedQuery(name = Book.DELETE, query = "DELETE FROM Book b WHERE b.id=:id AND b.user.id=:userId"),
+        @NamedQuery(name = Book.GET_ALL, query = "SELECT b FROM Book b WHERE b.user.id=:userId ORDER BY b.author")
 })
 
 @Entity
@@ -36,12 +39,16 @@ public class Book extends AbstractBaseEntity {
     @Pattern(regexp = "^978[0-9]{10}$", message = "Enter correct ISBN. 13 digit starts with 978")
     private String isbn;
 
-    @Column(name = "printYear")
-    //need make annotation for validation!
+    @Column(name = "print_year")
     private int printYear;
 
-    @Column(name = "readAlready")
+    @Column(name = "read_already")
     private boolean readAlready;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
 
     public Book() {
@@ -103,6 +110,13 @@ public class Book extends AbstractBaseEntity {
         this.readAlready = readAlready;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
