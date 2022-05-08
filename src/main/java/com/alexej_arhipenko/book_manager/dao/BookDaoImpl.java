@@ -4,12 +4,14 @@ import com.alexej_arhipenko.book_manager.model.Book;
 import com.alexej_arhipenko.book_manager.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Repository
 public class BookDaoImpl implements BookDao {
 
     Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);

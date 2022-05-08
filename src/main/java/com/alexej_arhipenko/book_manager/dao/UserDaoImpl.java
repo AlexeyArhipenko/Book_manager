@@ -1,11 +1,9 @@
 package com.alexej_arhipenko.book_manager.dao;
 
 import com.alexej_arhipenko.book_manager.model.User;
-import org.hibernate.jpa.QueryHints;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +16,7 @@ public class UserDaoImpl implements UserDao {
     private EntityManager em;
 
     @Override
+    @Transactional
     public User save(User user, long userId) {
         if (user.getId() == null) {
             em.persist(user);
@@ -28,6 +27,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional
     public boolean delete(long id) {
         return em.createNamedQuery(User.DELETE)
                 .setParameter("id", id)
